@@ -10,17 +10,35 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+
+    private static String message = "p";
     public TextField messages_box;
     public TextArea text_box;
-    MessagesServer service = new MessagesServer();
 
-    public void newMessage(ActionEvent actionEvent) {
-     //   text_box.setText(text_box.getText()+"\n"+"Tu: "+ "text_messages");
+    public static String getMessage() {
+        return message;
+    }
+
+
+    public void getMessages_box () {
+
+    }
+
+
+    Thread service = new MessagesServer();
+
+    public void newMessage() {
+        message = messages_box.getText();
+        text_box.setText(text_box.getText()+"\n"+"Tu: "+ message);
+
+     //   System.out.println("j"+message);
+        
 
 /*        String op = String.valueOf(this.messages_box.getText());
 
@@ -37,5 +55,6 @@ public class Controller implements Initializable {
     }
 
     public void newChat(ActionEvent actionEvent) {
+
     }
 }

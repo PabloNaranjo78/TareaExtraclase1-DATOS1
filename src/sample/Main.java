@@ -14,14 +14,13 @@ public class Main extends Application {
         primaryStage.setTitle("ChatApp");
         primaryStage.setScene(new Scene(root, 800, 500));
 
-
-
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-
+        Thread service = new MessagesServer();
+        service.start();
         launch(args);
 
     }

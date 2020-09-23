@@ -95,7 +95,7 @@
           <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField editable="false" prefHeight="49.0" prefWidth="279.0" text="127.0.0.1:5000" GridPane.rowIndex="2" />
+            <TextField fx:id="address" editable="false" prefHeight="49.0" prefWidth="279.0" text="127.0.0.1:5000" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Usted está concetado en:" GridPane.rowIndex="1" />
          </children>
       </GridPane>
