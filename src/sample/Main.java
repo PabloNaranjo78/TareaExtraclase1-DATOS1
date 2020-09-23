@@ -13,11 +13,16 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("ChatApp");
         primaryStage.setScene(new Scene(root, 800, 500));
+
+
+
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
+
         launch(args);
+
     }
 }

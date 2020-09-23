@@ -2,30 +2,33 @@ package sample;
 
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import org.w3c.dom.Text;
 
-import java.awt.*;
+
+
 import javafx.scene.control.TextField;
 
-import javax.management.StringValueExp;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    public TextField textCampo;
-    @FXML
-    public TextField textCampo1;
-    public TextArea mensajes;
+    public TextField messages_box;
+    public TextArea text_box;
+    MessagesServer service = new MessagesServer();
 
     public void newMessage(ActionEvent actionEvent) {
+     //   text_box.setText(text_box.getText()+"\n"+"Tu: "+ "text_messages");
 
-        String op = String.valueOf(this.textCampo.getText());
+/*        String op = String.valueOf(this.messages_box.getText());
 
-        this.mensajes.setText(mensajes.getText()+"\n"+"Tu: "+ op);
+        this.text_box.setText(text_box.getText()+"\n"+"Tu: "+ op);
+
+       */
+
+        //service.startService();
     }
 
     @Override
@@ -33,4 +36,6 @@ public class Controller implements Initializable {
 
     }
 
+    public void newChat(ActionEvent actionEvent) {
+    }
 }
