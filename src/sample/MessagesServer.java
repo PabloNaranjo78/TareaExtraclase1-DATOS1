@@ -1,10 +1,12 @@
 package sample;
+import javafx.scene.control.TextArea;
+
 import java.net.*;
 import java.io.*;
 
 public class MessagesServer extends Thread{
     public static String message;
-
+    public TextArea text_box;
 
     private final int port = Controller.getPort();
     static ServerSocket server;

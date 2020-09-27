@@ -44,19 +44,26 @@ public class Controller implements Initializable {
 
 
     public void startReceiveMessages(){
+
         Thread incomingData = new Thread(()->{
-            try{
             while(true){
                 String incomingMessages = MessagesServer.getIn_message();
-                if (incomingMessages == null){
-
-                }else{
+                if (flag){
                     text_box.setText(text_box.getText()+"\n"+"Amigo"+": "+ incomingMessages);
                     flag = false;
+                }else{
+
                 }
-            }}catch (Exception )
+                try {
+                    Thread.sleep(10)
+                    ;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
         });
+        System.out.println("2");
         incomingData.start();
     }
 
@@ -70,39 +77,19 @@ public class Controller implements Initializable {
         text_box.setText(text_box.getText()+"\n"+"Tu: "+ message);
 
         MessagesServer.send();
-        //   System.out.println("j"+message);
-
-
-/*        String op = String.valueOf(this.messages_box.getText());
-
-        this.text_box.setText(text_box.getText()+"\n"+"Tu: "+ op);
-
-       */
-
-        //service.startService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         address.setText("127.0.0.1:"+port);
+        startReceiveMessages();
       //  startReceiveMessages();
 
 
     }
 
     public void newChat(ActionEvent actionEvent) throws IOException {
-        startReceiveMessages();
-    /*    try{
-        port_client = Integer.valueOf( new_chat_port.getText());
-        ip = new_chat_ip.getText();
-        Thread messagesClient = new MessagesClient();
-        messagesClient.start();
 
-        }
-        catch (Exception e){
-            System.out.println("Dato inválido de ip y puerto");
-        }
-*/
     }
 
     public static int getPort_client() {
