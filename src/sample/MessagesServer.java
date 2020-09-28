@@ -6,12 +6,11 @@ import java.io.*;
 
 public class MessagesServer extends Thread{
     public static String message;
-    public TextArea text_box;
 
     private final int port = Controller.getPort();
     static ServerSocket server;
     Socket socket;
-    private static DataOutputStream out_data;
+    private static PrintStream out_data;
     private static BufferedReader in_data;
 
 
@@ -19,45 +18,41 @@ public class MessagesServer extends Thread{
 
     public static String getIn_message() {
         if (in_message == null){
-            return "$%$%";
+            return "";
         }
         else{
-        return in_message;}
+            return in_message;
+        }
     }
     public MessagesServer(){
     }
 
     public static void send() {
-        try {
-            message = Controller.getMessage();
-            out_data.writeUTF(message);
-            System.out.println(message);
-        } catch (IOException e) {
-            System.out.println("Se ha perdido la conexión");
-        }
+        message = Controller.getMessage();
+        out_data.println(message);
+        System.out.println(message);
     }
 
     public void run() {
-        System.out.println(port+"");
+        System.out.println(port);
         try {
             server = new ServerSocket(port);
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         socket = new Socket();
         while (true) {
-
             try {
-
                 socket = server.accept();
+                System.out.println("conexión entrante lista");
                 in_data = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                out_data = new DataOutputStream(socket.getOutputStream());
-                Thread ttt = new Thread(()-> {
+                out_data = new PrintStream(socket.getOutputStream());
+                Thread incomingDataThreadServer = new Thread(()-> {
                     while(true){
                         try {
                             in_message = in_data.readLine();
                             if (in_message!=null){
-                                System.out.println("Servidor:"+in_message);
+                                System.out.println("inS:"+in_message);
                                 Controller.setFlag();
                             }
                         } catch (IOException e) {
@@ -65,7 +60,7 @@ public class MessagesServer extends Thread{
                         }
                     }
                 });
-                ttt.start();
+                incomingDataThreadServer.start();
                 break;
             }
             catch (IOException e) {
