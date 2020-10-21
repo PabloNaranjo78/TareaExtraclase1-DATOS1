@@ -1,7 +1,11 @@
 package sample;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.*;
 import java.io.*;
+import java.util.logging.*;
 
 /***
  * Este Thread está encargado del manejo del servidor de mensajes
@@ -15,16 +19,18 @@ public class MessagesServer extends Thread{
     private static BufferedReader in_data;
     private static String in_message;
 
+    public static Logger log = LoggerFactory.getLogger(MessagesServer.class); //Logger
+
     /***
      * Este es llamado apenas se inicia el Thread, se encarga de iniciar el servidor con el puerto dado.
      */
     @Override
     public void run() {
-        System.out.println(port);
+        log.debug("Iniciado en puerto:"+ port);
         try {
             server = new ServerSocket(port); //Declara el socket con el puerto.
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e); //Envía el error al logger
         }
         socket = new Socket();
         while (true) {
@@ -41,6 +47,7 @@ public class MessagesServer extends Thread{
                                 Controller.setFlag();   //Llama a setFlag() para cambiar el estado y que se pueda mostrar el mensaje en pantalla.
                             }
                         } catch (IOException e) {
+                            log.error(e.getMessage(),e);//Envía el error al logger
                         }
                     }
                 });
@@ -48,7 +55,7 @@ public class MessagesServer extends Thread{
                 break;
             }
             catch (IOException e) {
-                System.out.println(e.getMessage());
+                log.error(e.getMessage(),e);//Envía el error al logger
             }
         }
     }

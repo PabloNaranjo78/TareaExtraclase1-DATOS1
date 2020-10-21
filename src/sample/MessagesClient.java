@@ -1,4 +1,7 @@
 package sample;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.*;
 
@@ -15,6 +18,8 @@ public class MessagesClient extends Thread {
     private String ip;
     private static String in_message;
 
+    public static Logger log = LoggerFactory.getLogger(MessagesClient.class); //Logger
+
     /*** Constructor de la clase MessagesClient.
      *
      * @param port Es el puerto en el que el cliente está esperando una llamada.
@@ -30,10 +35,10 @@ public class MessagesClient extends Thread {
      *  Se encarga de crear la conexión con el Cliente mediente el puerto e ip dadas.
      */
     public void run(){
-            System.out.println("Conectando con:"+ ip+" "+port);
+            log.debug("Conectando con:"+ ip+" "+port);
                 try{
                     client = new Socket(ip, port); //Inicia la conexión con el cliente.
-                    System.out.println("Conexión exitosa con: "+ port);
+                    log.debug("Conexión exitosa con: "+ port);
                     in_data = new BufferedReader(new InputStreamReader(client.getInputStream()));
                     data = new BufferedReader(new InputStreamReader(System.in));
                     out_data = new PrintStream(client.getOutputStream());
@@ -45,12 +50,13 @@ public class MessagesClient extends Thread {
                                     Controller.setFlag(); //Cambia el estado del flag para poder mostrar los mensajes.
                                 }
                             } catch (IOException e) {
+                                log.error(e.getMessage(),e); //Envía el error al logger
                             }
                         }
                     });
                     incomingDataThreadClient.start(); //Inicia el Thread.
                 }catch (Exception e){
-                    System.out.println("conexión fallida");
+                    log.error(e.getMessage(),e);
                 }
         }
 

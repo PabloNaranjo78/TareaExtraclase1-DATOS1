@@ -4,10 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 
 
 /***La clase controller es la principal encargada del manejo de la interfaz gráfica y de a donde se mandandarán
@@ -28,8 +30,10 @@ public class Controller implements Initializable {
     public TextField new_chat_port;
     public TextField new_chat_ip;
     public static boolean sending = false;
-    public static boolean flag = true;
+    public static boolean flag = false;
     String incomingMessages;
+
+    public static Logger log = LoggerFactory.getLogger(Controller.class); //Logger
 
     /***
      * Esta función se ejecuta cuando se inicia la interfaz gráfica, pondrá en el cuadro de la ip el valor que se le
@@ -56,13 +60,15 @@ public class Controller implements Initializable {
                     incomingMessages = MessagesServer.getIn_message();
                 }
                 if (flag){ //Este flag será verdadero cuando haya un mensaje nuevo.
+                    log.debug("Nuevo mensaje entrante");
                     text_box.setText(text_box.getText()+"\n"+"Amigo"+": "+ incomingMessages);
                     flag = false;
+
                 }else{
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(),e); //Envía el error al logger
                 }}
             }
 
@@ -81,6 +87,7 @@ public class Controller implements Initializable {
         messages_box.setText("");
         /* sending funciona como selector de si se debe responder a un cliente que llama o a un cliente que ha sido
         * llamado */
+        log.debug("Enviando mensaje");
         if (sending){
             MessagesClient.send();
         }else{
@@ -95,12 +102,13 @@ public class Controller implements Initializable {
         try{
         String ip = new_chat_ip.getText();
         int port_client = Integer.valueOf(new_chat_port.getText());
-        System.out.println("Iniciando conexión");
+        log.debug("Iniciando Conexión");
         Thread startNewChat = new MessagesClient(port_client, ip);
         setReceiveOrSend();
         startNewChat.start();}
        catch (Exception e){
-           System.out.println("IP o Puerto inválido");
+           log.error(e.getMessage(),e);  //Envía el error al logger
+           throw new IllegalArgumentException("Ip o puerto inválido");
        }
     }
 

@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*** Clase principal de la aplicaición.
  * @author Pablo Naranjo Monge
@@ -15,6 +17,8 @@ import javafx.stage.Stage;
  * interactuar entre ellas.
  */
 public class Main extends Application {
+
+    public static Logger log = LoggerFactory.getLogger(Main.class); //Logger
 
     /*** Lanzador de la interfaz gráfica
      */
@@ -31,6 +35,7 @@ public class Main extends Application {
      * interfaz gráfica y por otro lado las funciones lógicas que hacen posible la utización del socket.
      */
     public static void main(String[] args) {
+        log.debug("Iniciando aplicación");
         Thread service = new MessagesServer();
         service.start();
         launch(args);
