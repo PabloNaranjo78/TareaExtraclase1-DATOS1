@@ -19,6 +19,7 @@ public class MessagesClient extends Thread {
      *
      * @param port Es el puerto en el que el cliente está esperando una llamada.
      * @param ip  Es la dirección ip en el que se encuentra el otro cliente, si es local se deberá usar 127.0.0.1
+     *
      */
     public MessagesClient(int port, String ip){
         this.port = port;

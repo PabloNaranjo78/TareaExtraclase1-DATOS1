@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+
 /***La clase controller es la principal encargada del manejo de la interfaz gráfica y de a donde se mandandarán
  * las funciones, si al MessagesServer o al MessagesClient. El cógido de la interfaz se encuentra en el archivo
  * sample.fxml
