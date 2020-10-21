@@ -9,6 +9,17 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** Los logs se pusieron en:
+ * -Control: línea 71 y 110
+ * -MessagesClient: línea 53 y 59
+ * -MessagesServer: línea 50 y 58
+ */
+
+
+
+
+
+
 /*** Clase principal de la aplicaición.
  * @author Pablo Naranjo Monge
  * Recomendaciones: estar revisando la consola en caso de mensajes, por ejemplo, el estado de

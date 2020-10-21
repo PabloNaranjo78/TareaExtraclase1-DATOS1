@@ -106,7 +106,7 @@ public class Controller implements Initializable {
         Thread startNewChat = new MessagesClient(port_client, ip);
         setReceiveOrSend();
         startNewChat.start();}
-       catch (Exception e){
+       catch (IllegalArgumentException e){
            log.error(e.getMessage(),e);  //Envía el error al logger
            throw new IllegalArgumentException("Ip o puerto inválido");
        }
